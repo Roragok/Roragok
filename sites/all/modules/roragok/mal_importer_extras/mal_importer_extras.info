@@ -1,0 +1,6 @@
+name = My Anime List Importer extras
+description = Imports additional data from MAL.
+package = Roragok
+core = 7.x
+
+

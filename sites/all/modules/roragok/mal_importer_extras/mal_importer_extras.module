@@ -1,0 +1,7 @@
+<?php
+
+function mal_importer_extras_menu(){
+
+return $items;
+}
+?>
