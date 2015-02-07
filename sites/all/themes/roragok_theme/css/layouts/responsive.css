@@ -25,6 +25,7 @@
 #header,
 #content,
 #navigation,
+.breadcrumb,
 .region-sidebar-first,
 .region-sidebar-second,
 #footer {
@@ -268,4 +269,24 @@
     margin-left: 80%;
     margin-right: -100%;
   }
+}
+
+/* Navigation bar */
+@media all and (max-width: 480px) {
+  #main {
+    /* Move all the children of #main down to make room. */
+    padding-top: 3em;
+    position: relative;
+  }
+  #navigation {
+    /* Move the navbar up inside #main's padding. */
+    position: absolute;
+    top: 0;
+    height: 3em;
+    width: 100%;
+  }
+#block-block-1 iframe{ 
+width:300px;
+height:205px;
+}
 }
