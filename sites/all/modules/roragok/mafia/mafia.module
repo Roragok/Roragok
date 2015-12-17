@@ -1,0 +1,132 @@
+<?php
+function computed_field_field_town_games_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+
+$nodes = node_load_multiple(array(), array('type' => 'mafia_game')); 
+$count =0;
+foreach($nodes as $game){
+
+	foreach($game->field_town_players['und'] as $player){
+		if($entity->nid == $player['target_id']){
+			$count++;	
+		}
+	}
+}
+
+	$entity_field[0]['value'] = $count;
+}
+
+function computed_field_field_town_wins_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+
+$nodes = node_load_multiple(array(), array('type' => 'mafia_game')); 
+$count =0;
+foreach($nodes as $game){
+
+	foreach($game->field_town_players['und'] as $player){
+		if($entity->nid == $player['target_id']){
+			foreach($game->field_winning_team['und'] as $winner){
+
+				if($winner['value'] == 'Town'){
+					$count++;
+				}
+			}	
+		}
+	}
+}
+
+	$entity_field[0]['value'] = $count;
+}
+function computed_field_field_mafia_games_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+
+$nodes = node_load_multiple(array(), array('type' => 'mafia_game')); 
+$count =0;
+foreach($nodes as $game){
+
+	foreach($game->field_mafia_players['und'] as $player){
+		if($entity->nid == $player['target_id']){
+			$count++;	
+		}
+	}
+	if($game->field_mafia_players_b){
+	foreach($game->field_mafia_players_b['und'] as $player){
+		if($entity->nid == $player['target_id']){
+			$count++;	
+		}
+	}
+	}
+}
+
+	$entity_field[0]['value'] = $count;
+}
+
+function computed_field_field_mafia_wins_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+
+$nodes = node_load_multiple(array(), array('type' => 'mafia_game')); 
+$count =0;
+foreach($nodes as $game){
+
+	foreach($game->field_mafia_players['und'] as $player){
+		if($entity->nid == $player['target_id']){
+			foreach($game->field_winning_team['und'] as $winner){
+
+				if($winner['value'] == 'MafiaA'){
+					$count++;
+				}
+			}	
+		}
+	}
+	if($game->field_mafia_players_b){
+	foreach($game->field_mafia_players_b['und'] as $player){
+		if($entity->nid == $player['target_id']){
+			foreach($game->field_winning_team['und'] as $winner){
+
+				if($winner['value'] == 'MafiaB'){
+					$count++;
+				}
+			}	
+		}
+	}
+	}
+}
+
+	$entity_field[0]['value'] = $count;
+}
+
+function computed_field_field_third_games_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+
+$nodes = node_load_multiple(array(), array('type' => 'mafia_game')); 
+$count =0;
+foreach($nodes as $game){
+	if($game->field_third_party){
+	foreach($game->field_third_party['und'] as $player){
+		if($entity->nid == $player['target_id']){
+			$count++;	
+		}
+	}
+
+	}
+	$entity_field[0]['value'] = $count;
+	}
+}
+
+function computed_field_field_third_wins_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+
+$nodes = node_load_multiple(array(), array('type' => 'mafia_game')); 
+$count =0;
+foreach($nodes as $game){
+      if($game->field_third_party){
+	foreach($game->field_third_party['und'] as $player){
+		if($entity->nid == $player['target_id']){
+			foreach($game->field_winning_team['und'] as $winner){
+
+				if($winner['value'] == 'Third'){
+					$count++;
+				}
+			}	
+		}
+	}
+}
+
+	$entity_field[0]['value'] = $count;
+}
+}
+?>
