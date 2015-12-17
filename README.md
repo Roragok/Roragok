@@ -1,2 +1,3 @@
 # Roragok
-Roragok Things
+
+Learning dumb shit. watever fam
