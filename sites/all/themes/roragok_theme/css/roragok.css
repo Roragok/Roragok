@@ -14,3 +14,37 @@ width:50%;
 float:left;
 min-height:350px;
 }
+
+.region-bottom{
+margin-top:100px;
+}
+/*****
+ *
+ *WE DOING FACET STYLING FAM
+ * */
+
+.region-sidebar-first div.block-facetapi{
+margin-bottom:0px;
+}
+
+ul.facetapi-facetapi-links{
+margin:0;
+}
+
+a.facetapi-limit-link{
+position:relative;
+left:150px;
+}
+.ui-widget-content a{
+color: rgb(0, 0, 238);
+}
+.ui-widget-content a:visited{
+color:rgb(85, 26, 139)
+}
+.ui-widget-content{
+background: lightgray;
+}
+.ui-state-active{
+background: #dadada url(/misc/ui/images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+}
+

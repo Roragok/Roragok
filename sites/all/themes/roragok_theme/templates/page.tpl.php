@@ -37,7 +37,7 @@
     <div id="navigation">
       <?php print render($page['navigation']); ?>
     </div>
- <?php print $breadcrumb; ?>
+ <?php //print $breadcrumb; ?>
      <div id="content" class="column" role="main">
       <a id="main-content"></a>
       <?php if ($title): ?>
@@ -49,6 +49,7 @@ if ($user->uid == 1){
   print $messages;
 } 
 ?>
+<?php print render($tabs);?>
       <?php print render($page['content']); ?>
       <?php print render($page['front_bottom_content']);?>
     </div>

@@ -1,0 +1,4 @@
+name = Roragok Extras
+package = Roragok
+core = 7.x
+description = Addition Config for Site
