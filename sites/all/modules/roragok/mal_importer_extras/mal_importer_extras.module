@@ -65,29 +65,37 @@ function mal_importer_extras_anime_import_submit()
 
     //Iterate though the anime nodes
     foreach ($nodes as $node) {
-        //Curl function to grab data from MAL
-        //Unfortunatelly you can only do search and no lookup by ID maybe ANDIB has a better api?
-        $ch = curl_init();
-        $xml_query = 'http://myanimelist.net/api/anime/search.xml?q=' . $node->title;
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $xml_query);
-        curl_setopt($ch, CURLOPT_USERPWD, 'RoragokAPI' . ':' . 'thingsapi');
-        $result = curl_exec($ch);
-        curl_close($ch);
+
+        // Get cURL resource
+        $curl = curl_init();
+        //IF V2 WORKS FFS
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => 'http://hummingbird.me/api/v1/search/anime?query=' .$node->title,
+            CURLOPT_HTTPHEADER => array('X-Client-Id: 8d5fc69d9672da560d8a'),
+        ));
+        $result = curl_exec($curl);
+        curl_close($curl);
+
+        $json = json_decode($result, true);
+    dsm($json);
+        break;
+
 
         //Load response as an xml
 
-        if (!empty($result)) {
-            $xml = simplexml_load_string(($result));
+        if (!empty($json)) {
             //Since we can only search we need to iterate though each response and find the one that matches our ID
-            foreach ($xml->entry as $entry) {
-                if ($entry->id == $node->field_anime_id['und'][0]['value']) {
+            foreach ($json as $entry) {
+                if ($entry['mal_id'] == $node->field_anime_id['und'][0]['value']) {
                      mal_importer_extras_build_node($node, $entry);
 
                 }
             }
         }
+
     }
+
 
 }
 
@@ -102,16 +110,20 @@ function mal_importer_extras_anime_import_submit()
  * @throws Exception - i cry everytime
  */
 function mal_importer_extras_build_node($node,$entry){
-    if($entry->image) {
-        $file = system_retrieve_file($entry->image, 'public://anime/', TRUE, FILE_EXISTS_REPLACE);
-        $file->display = 1;
+    if($entry['cover_image']) {
 
+        $url = $entry['cover_image'];
+        $path = explode('//',$entry['cover_image']);
+        $file = system_retrieve_file('http://'.$path[1], 'public://anime', TRUE, FILE_EXISTS_REPLACE);
+        $file->field_file_image_alt_text = $entry['slug'];
+        $file->field_file_image_title_text= $entry['slug'];
         $node->field_picture['und'][0] = (array)$file;
 
     }
 
-    $node->body['und'][0]['value'] = $entry->synopsis;
+    $node->body['und'][0]['value'] = $entry['synopsis'];
     $node->body['und'][0]['format'] ='full_html';
+    $node->field_anime_length['und'][0]['value'] = $entry['episode_count'];
      node_save($node);
 }
 ?>
