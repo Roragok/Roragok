@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Mafia Games feature.
+ */
+
+include_once 'ct_mafia_games.features.inc';
