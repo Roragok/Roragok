@@ -27,15 +27,22 @@
             <?php endif; ?>
         </header>
     <?php endif; ?>
-    <div class="anime-image-wrapper">
-
-
-    </div>
     <?php
     // We hide the comments and links now so that we can render them later.
     hide($content['comments']);
     hide($content['links']);
-    print render($content);
+    ?>
+    <div class="anime-meta-data">
+    <?php
+    print render($content['field_picture']);
+    print render($content['field_anime_status']);
+    print render($content['field_anime_score']);
+    print render($content['field_anime_length']);
+    print render($content['field_anime_episodes_watched']);
+    ?>
+    </div>
+    <?php
+    print render($content['body']);
     ?>
 
 

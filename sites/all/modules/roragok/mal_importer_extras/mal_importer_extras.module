@@ -61,9 +61,38 @@ function mal_importer_extras_anime_import_submit()
 
     //Load all Anime Nodes
     //Possibly add check if it has no image or body before importing to reduce slamming hummmingbird
-    $nodes = node_load_multiple(array(), array('type' => 'anime'));
+   // $nodes = node_load_multiple(array(), array('type' => 'anime'));
 
     //Iterate though the anime nodes
+//    foreach ($nodes as $node) {
+//
+//        // Get cURL resource
+//        $curl = curl_init();
+//        //IF V2 WORKS FFS can lookup via mal idXD
+//        curl_setopt_array($curl, array(
+//            CURLOPT_RETURNTRANSFER => 1,
+//            CURLOPT_URL => 'http://hummingbird.me/api/v1/search/anime?query=' .preg_replace ('/\s+/','+',$node->title),
+//            CURLOPT_HTTPHEADER => array('X-Client-Id: 8d5fc69d9672da560d8a'),
+//        ));
+//        $result = curl_exec($curl);
+//        curl_close($curl);
+//        $json = json_decode($result, true);
+//
+//        //Check if it has a response before trying to update shit fam
+//        if (!empty($json)) {
+//            //Since we can only search we need to iterate though each response and find the one that matches our ID
+//            foreach ($json as $entry) {
+//                if ($entry['mal_id'] == $node->field_anime_id['und'][0]['value']) {
+//                     mal_importer_extras_build_node($node, $entry);
+//
+//                }
+//            }
+//        }
+//
+//    }
+    $path = drupal_get_path('module','mal_importer_extras');
+    global $base_url;
+    $nodes = node_load_multiple(array(), array('type' => 'manga'));
     foreach ($nodes as $node) {
 
         // Get cURL resource
@@ -71,19 +100,46 @@ function mal_importer_extras_anime_import_submit()
         //IF V2 WORKS FFS can lookup via mal idXD
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'http://hummingbird.me/api/v1/search/anime?query=' .preg_replace ('/\s+/','+',$node->title),
+            CURLOPT_URL => 'http://hummingbird.me/full_manga/' .strtolower(preg_replace ('/\s+/','+',$node->title)),
             CURLOPT_HTTPHEADER => array('X-Client-Id: 8d5fc69d9672da560d8a'),
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_SSL_VERIFYPEER => TRUE,
+            CURLOPT_CAPATH => $base_url. '/'.$path.'ca-bundle.crt',
+
+
+
+
         ));
+        if(!curl_exec($curl)){
+            die('Error: "' . curl_error($curl) . '" - Code: ' . curl_errno($curl));
+        }
+
         $result = curl_exec($curl);
         curl_close($curl);
+
+//        $path = drupal_get_path('module','mal_importer_extras');
+//        global $base_url;
+//        $arrContextOptions=array(
+//            "ssl"=>array(
+//                "cafile" => $base_url .'/'. $path."/ca-bundle.crt",
+//                "verify_peer"=> true,
+//                "verify_peer_name"=> true,
+//            ),
+//        );
+//
+//        $result = file_get_contents('http://hummingbird.me/full_manga/' .strtolower(preg_replace ('/\s+/','+',$node->title)), false, stream_context_create($arrContextOptions));
         $json = json_decode($result, true);
+        dsm('http://hummingbird.me/full_manga/' .strtolower(preg_replace ('/\s+/','+',$node->title)));
+        dsm($result);
+        dsm($node);
+        break;
 
         //Check if it has a response before trying to update shit fam
         if (!empty($json)) {
             //Since we can only search we need to iterate though each response and find the one that matches our ID
             foreach ($json as $entry) {
                 if ($entry['mal_id'] == $node->field_anime_id['und'][0]['value']) {
-                     mal_importer_extras_build_node($node, $entry);
+                    mal_importer_extras_build_node($node, $entry);
 
                 }
             }
