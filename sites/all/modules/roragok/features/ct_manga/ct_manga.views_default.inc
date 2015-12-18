@@ -45,22 +45,12 @@ function ct_manga_views_default_views() {
   $handler->display->display_options['fields']['field_manga_status']['label'] = '';
   $handler->display->display_options['fields']['field_manga_status']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_manga_status']['element_label_colon'] = FALSE;
-  /* Field: Content: Manga ID */
-  $handler->display->display_options['fields']['field_manga_id']['id'] = 'field_manga_id';
-  $handler->display->display_options['fields']['field_manga_id']['table'] = 'field_data_field_manga_id';
-  $handler->display->display_options['fields']['field_manga_id']['field'] = 'field_manga_id';
-  $handler->display->display_options['fields']['field_manga_id']['label'] = '';
-  $handler->display->display_options['fields']['field_manga_id']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_manga_id']['element_label_colon'] = FALSE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['title']['alter']['text'] = '<a href="http://myanimelist.net/manga/[field_manga_id]" target="_blank">[title]</a>';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
   /* Sort criterion: Content: Manga Status (field_manga_status) */
   $handler->display->display_options['sorts']['field_manga_status_tid']['id'] = 'field_manga_status_tid';
   $handler->display->display_options['sorts']['field_manga_status_tid']['table'] = 'field_data_field_manga_status';

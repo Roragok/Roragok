@@ -45,7 +45,6 @@ function ct_anime_views_default_views() {
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['text'] = '<a href="http://myanimelist.net/anime/[field_anime_id]">[title]</a>';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
@@ -77,38 +76,6 @@ function ct_anime_views_default_views() {
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Anime Status */
-  $handler->display->display_options['fields']['field_anime_status']['id'] = 'field_anime_status';
-  $handler->display->display_options['fields']['field_anime_status']['table'] = 'field_data_field_anime_status';
-  $handler->display->display_options['fields']['field_anime_status']['field'] = 'field_anime_status';
-  $handler->display->display_options['fields']['field_anime_status']['label'] = '';
-  $handler->display->display_options['fields']['field_anime_status']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_anime_status']['element_label_colon'] = FALSE;
-  /* Field: Content: Anime ID */
-  $handler->display->display_options['fields']['field_anime_id']['id'] = 'field_anime_id';
-  $handler->display->display_options['fields']['field_anime_id']['table'] = 'field_data_field_anime_id';
-  $handler->display->display_options['fields']['field_anime_id']['field'] = 'field_anime_id';
-  $handler->display->display_options['fields']['field_anime_id']['label'] = '';
-  $handler->display->display_options['fields']['field_anime_id']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_anime_id']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_anime_id']['type'] = 'number_unformatted';
-  $handler->display->display_options['fields']['field_anime_id']['settings'] = array(
-    'thousand_separator' => ' ',
-    'prefix_suffix' => 0,
-  );
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['title']['alter']['text'] = '<a href="http://myanimelist.net/anime/[field_anime_id]">[title]</a>
-';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Anime Status (field_anime_status) */
   $handler->display->display_options['sorts']['field_anime_status_tid']['id'] = 'field_anime_status_tid';
@@ -155,22 +122,11 @@ function ct_anime_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: Content: Anime ID */
-  $handler->display->display_options['fields']['field_anime_id']['id'] = 'field_anime_id';
-  $handler->display->display_options['fields']['field_anime_id']['table'] = 'field_data_field_anime_id';
-  $handler->display->display_options['fields']['field_anime_id']['field'] = 'field_anime_id';
-  $handler->display->display_options['fields']['field_anime_id']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['field_anime_id']['settings'] = array(
-    'thousand_separator' => '',
-    'prefix_suffix' => 1,
-  );
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['title']['alter']['text'] = '<a href="http://myanimelist.net/anime/[field_anime_id]" target="_blank">[title]</a>';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
@@ -192,12 +148,12 @@ function ct_anime_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'anime' => 'anime',
   );
-  /* Filter criterion: Content: Anime Score (field_anime_score) */
-  $handler->display->display_options['filters']['field_anime_score_value']['id'] = 'field_anime_score_value';
-  $handler->display->display_options['filters']['field_anime_score_value']['table'] = 'field_data_field_anime_score';
-  $handler->display->display_options['filters']['field_anime_score_value']['field'] = 'field_anime_score_value';
-  $handler->display->display_options['filters']['field_anime_score_value']['operator'] = '>=';
-  $handler->display->display_options['filters']['field_anime_score_value']['value']['value'] = '7';
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'node';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['operator'] = 'shorterthan';
+  $handler->display->display_options['filters']['title']['value'] = '25';
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');

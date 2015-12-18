@@ -5,6 +5,9 @@ GENERAL SHIT
 body{
 background: -webkit-linear-gradient(left, lightgray,#ffffff 50%);
 }
+html{
+    background:#404040;
+}
 
 a{
 text-decoration:none;
@@ -17,10 +20,6 @@ text-decoration:underline;
 width:50%;
 float:left;
 min-height:350px;
-}
-
-.region-bottom{
-margin-top:100px;
 }
 
 /*
@@ -61,3 +60,26 @@ background: lightgray;
 background: #dadada url(/misc/ui/images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
 }
 
+/**
+FOOTER FOOLS
+**/
+
+.region-bottom{
+    padding-top:20px;
+}
+.footer-wrapper{
+    background:#404040;
+    color:white;
+    margin-top: 100px;
+}
+.region-bottom ul.menu li{
+    list-style-image:none;
+    list-style-type:none;
+    padding-top: 20px;
+}
+.region-bottom ul.menu li:first-of-type{
+    padding-top:0px;
+}
+.region-bottom ul.menu li a{
+    color:#fafafa;
+}

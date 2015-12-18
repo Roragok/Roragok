@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Roragok Config feature.
+ */
+
+include_once 'roragok_config.features.inc';
