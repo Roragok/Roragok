@@ -4,12 +4,13 @@
  *
  * @return $items
  */
-function mal_importer_extras_menu(){
+function mal_importer_extras_menu()
+{
     $items['admin/config/mal'] = array(
         'title' => 'MAL Importer',
         'description' => 'Import additional info from MAL',
         'position' => 'right',
-        'weight'=> 10,
+        'weight' => 10,
         'access arguments' => array('administer site configuration'),
         'page callback' => 'system_admin_menu_block_page',
 
@@ -23,7 +24,7 @@ function mal_importer_extras_menu(){
 
 
     );
-return $items;
+    return $items;
 }
 
 /**
@@ -32,18 +33,19 @@ return $items;
  *
  * @return array
  */
-function mal_importer_extras_anime_import(){
-    $form= array();
+function mal_importer_extras_anime_import()
+{
+    $form = array();
 
     $form['update_data'] = array(
         '#type' => 'button',
-        '#value'=> 'UPDATE',
+        '#value' => 'UPDATE',
         '#submit' => 'mal_importer_extras_anime_import_submit',
     );
 
     $form['#submit'][] = 'mal_importer_extras_anime_import_submit';
     mal_importer_extras_anime_import_submit();
-   return $form;
+    return $form;
 
 }
 
@@ -70,7 +72,7 @@ function mal_importer_extras_anime_import_submit()
         //IF V2 WORKS FFS can lookup via mal idXD
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'http://hummingbird.me/api/v1/search/anime?query=' .preg_replace ('/\s+/','+',$node->title),
+            CURLOPT_URL => 'http://hummingbird.me/api/v1/search/anime?query=' . preg_replace('/\s+/', '+', $node->title),
             CURLOPT_HTTPHEADER => array('X-Client-Id: 8d5fc69d9672da560d8a'),
         ));
         $result = curl_exec($curl);
@@ -82,7 +84,7 @@ function mal_importer_extras_anime_import_submit()
             //Since we can only search we need to iterate though each response and find the one that matches our ID
             foreach ($json as $entry) {
                 if ($entry['mal_id'] == $node->field_anime_id['und'][0]['value']) {
-                     mal_importer_extras_build_node($node, $entry);
+                    mal_importer_extras_build_node($node, $entry);
 
                 }
             }
@@ -91,18 +93,16 @@ function mal_importer_extras_anime_import_submit()
     }
     $mangas = node_load_multiple(array(), array('type' => 'manga'));
     foreach ($mangas as $manga) {
-$title =strtolower(preg_replace ('/\s+/','-',preg_replace("/[^A-Za-z0-9 ]/", ' ',$manga->title)));
-$title = rtrim($title,'-');
-        $result = file_get_contents('http://hummingbird.me/full_manga/' .$title);
+        $title = strtolower(preg_replace('/\s+/', '-', preg_replace("/[^A-Za-z0-9 ]/", ' ', $manga->title)));
+        $title = rtrim($title, '-');
+        $result = file_get_contents('http://hummingbird.me/full_manga/' . $title);
         $json = json_decode($result, true);
         //Check if it has a response before trying to update shit fam
         if (!empty($json)) {
-                   mal_manga_importer_extras_build_node($manga, $json);
+            mal_manga_importer_extras_build_node($manga, $json);
 
-            }
         }
-
-    
+    }
 
 
 }
@@ -117,23 +117,25 @@ $title = rtrim($title,'-');
  * @param $entry - XML of data to add to node
  * @throws Exception - i cry everytime
  */
-function mal_importer_extras_build_node($node,$entry){
-    if($entry['cover_image']) {
+function mal_importer_extras_build_node($node, $entry)
+{
+    if ($entry['cover_image']) {
 
         $url = $entry['cover_image'];
-        $path = explode('//',$entry['cover_image']);
-        $file = system_retrieve_file('http://'.$path[1], 'public://anime', TRUE, FILE_EXISTS_REPLACE);
+        $path = explode('//', $entry['cover_image']);
+        $file = system_retrieve_file('http://' . $path[1], 'public://anime', TRUE, FILE_EXISTS_REPLACE);
         $file->field_file_image_alt_text = $entry['slug'];
-        $file->field_file_image_title_text= $entry['slug'];
+        $file->field_file_image_title_text = $entry['slug'];
         $node->field_picture['und'][0] = (array)$file;
 
     }
 
     $node->body['und'][0]['value'] = $entry['synopsis'];
-    $node->body['und'][0]['format'] ='full_html';
+    $node->body['und'][0]['format'] = 'full_html';
     $node->field_anime_length['und'][0]['value'] = $entry['episode_count'];
-     node_save($node);
+    node_save($node);
 }
+
 /**
  * Purpose of this function is to just save the file to our local storage and add its FID to the node
  *
@@ -144,25 +146,27 @@ function mal_importer_extras_build_node($node,$entry){
  * @param $entry - XML of data to add to node
  * @throws Exception - i cry everytime
  */
-function mal_manga_importer_extras_build_node($node,$entry){
- if($entry['full_manga']['poster_image']) {
+function mal_manga_importer_extras_build_node($node, $entry)
+{
+    if ($entry['full_manga']['poster_image']) {
 
         $url = $entry['full_manga']['poster_image'];
-        $path = explode('//',$url);
-        $file = system_retrieve_file('http://'.$path[1], 'public://manga', TRUE, FILE_EXISTS_REPLACE);
+        $path = explode('//', $url);
+        $file = system_retrieve_file('http://' . $path[1], 'public://manga', TRUE, FILE_EXISTS_REPLACE);
         $file->field_file_image_alt_text = $entry['full_manga']['romaji_title'];
-        $file->field_file_image_title_text= $entry['full_manga']['romaji_title'];
+        $file->field_file_image_title_text = $entry['full_manga']['romaji_title'];
         $node->field_picture['und'][0] = (array)$file;
 
     }
 
     $node->body['und'][0]['value'] = $entry['full_manga']['synopsis'];
-    $node->body['und'][0]['format'] ='full_html';
+    $node->body['und'][0]['format'] = 'full_html';
     $node->field_manga_volumes['und'][0]['value'] = $entry['full_manga']['volume_count'];
     $node->field_manga_chapters['und'][0]['value'] = $entry['full_manga']['chapter_count'];
- //   $node->field_read_volumes['und'][0]['value'] = $entry['episode_count'];
-   // $node->field_read_chapters['und'][0]['value'] = $entry['episode_count'];
+    //   $node->field_read_volumes['und'][0]['value'] = $entry['episode_count'];
+    // $node->field_read_chapters['und'][0]['value'] = $entry['episode_count'];
 
- node_save($node);
+    node_save($node);
 }
+
 ?>
