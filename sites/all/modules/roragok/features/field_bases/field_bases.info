@@ -37,6 +37,7 @@ features[field_base][] = field_manga_id
 features[field_base][] = field_manga_score
 features[field_base][] = field_manga_status
 features[field_base][] = field_manga_volumes
+features[field_base][] = field_moderator
 features[field_base][] = field_night_1_kills
 features[field_base][] = field_picture
 features[field_base][] = field_read_chapters

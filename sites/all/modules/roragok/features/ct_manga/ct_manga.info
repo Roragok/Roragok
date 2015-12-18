@@ -9,6 +9,7 @@ dependencies[] = feeds
 dependencies[] = feeds_xpathparser
 dependencies[] = field_bases
 dependencies[] = field_group
+dependencies[] = image
 dependencies[] = number
 dependencies[] = options
 dependencies[] = taxonomy

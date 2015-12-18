@@ -83,8 +83,9 @@ function ct_mafia_games_field_group_info() {
       1 => 'field_mafia_game_type',
       2 => 'field_mafia_game_name',
       3 => 'field_mafia_size',
-      4 => 'title',
-      5 => 'group_roles',
+      4 => 'field_moderator',
+      5 => 'title',
+      6 => 'group_roles',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -225,7 +226,7 @@ function ct_mafia_games_field_group_info() {
   $field_group->parent_name = 'group_info';
   $field_group->data = array(
     'label' => 'Roles',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_mafia_roles',
     ),

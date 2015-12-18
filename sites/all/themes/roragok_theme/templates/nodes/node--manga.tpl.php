@@ -38,10 +38,12 @@
         ?>
         <div class="anime-meta-data">
             <?php
-            print render($content['field_anime_status']);
-            print render($content['field_anime_score']);
-            print render($content['field_anime_length']);
-            print render($content['field_anime_episodes_watched']);
+            print render($content['field_manga_status']);
+            print render($content['field_manga_chapters']);
+            print render($content['field_manga_volumes']);
+            print render($content['field_manga_score']);
+            print render($content['field_read_chapters']);
+            print render($content['field_read_volumes']);
             ?>
         </div>
     </div>
