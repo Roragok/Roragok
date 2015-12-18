@@ -92,6 +92,7 @@ function ct_anime_views_default_views() {
   $handler->display->display_options['fields']['field_anime_id']['label'] = '';
   $handler->display->display_options['fields']['field_anime_id']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_anime_id']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_anime_id']['type'] = 'number_unformatted';
   $handler->display->display_options['fields']['field_anime_id']['settings'] = array(
     'thousand_separator' => ' ',
     'prefix_suffix' => 0,
