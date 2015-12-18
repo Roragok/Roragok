@@ -76,6 +76,35 @@ function ct_anime_views_default_views() {
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['grouping'] = array(
+    0 => array(
+      'field' => 'field_anime_status',
+      'rendered' => 1,
+      'rendered_strip' => 0,
+    ),
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  /* Field: Content: Anime Status */
+  $handler->display->display_options['fields']['field_anime_status']['id'] = 'field_anime_status';
+  $handler->display->display_options['fields']['field_anime_status']['table'] = 'field_data_field_anime_status';
+  $handler->display->display_options['fields']['field_anime_status']['field'] = 'field_anime_status';
+  $handler->display->display_options['fields']['field_anime_status']['label'] = '';
+  $handler->display->display_options['fields']['field_anime_status']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_anime_status']['element_label_colon'] = FALSE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: Anime Status (field_anime_status) */
   $handler->display->display_options['sorts']['field_anime_status_tid']['id'] = 'field_anime_status_tid';
