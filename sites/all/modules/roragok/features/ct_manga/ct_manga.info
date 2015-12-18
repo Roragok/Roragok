@@ -26,6 +26,7 @@ features[field_instance][] = node-manga-field_manga_id
 features[field_instance][] = node-manga-field_manga_score
 features[field_instance][] = node-manga-field_manga_status
 features[field_instance][] = node-manga-field_manga_volumes
+features[field_instance][] = node-manga-field_picture
 features[field_instance][] = node-manga-field_read_chapters
 features[field_instance][] = node-manga-field_read_volumes
 features[node][] = manga

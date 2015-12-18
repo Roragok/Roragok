@@ -146,9 +146,9 @@ function ct_manga_field_default_field_instances() {
         'module' => 'number',
         'settings' => array(
           'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
+          'prefix_suffix' => 0,
           'scale' => 0,
-          'thousand_separator' => ' ',
+          'thousand_separator' => '',
         ),
         'type' => 'number_integer',
         'weight' => 5,
@@ -257,6 +257,56 @@ function ct_manga_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-manga-field_picture'.
+  $field_instances['node-manga-field_picture'] = array(
+    'bundle' => 'manga',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => 'anime',
+        ),
+        'type' => 'image',
+        'weight' => 8,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_picture',
+    'label' => 'Picture',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => 'manga',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'bar',
+      ),
+      'type' => 'image_image',
+      'weight' => 41,
+    ),
+  );
+
   // Exported field_instance: 'node-manga-field_read_chapters'.
   $field_instances['node-manga-field_read_chapters'] = array(
     'bundle' => 'manga',
@@ -269,9 +319,9 @@ function ct_manga_field_default_field_instances() {
         'module' => 'number',
         'settings' => array(
           'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
+          'prefix_suffix' => 0,
           'scale' => 0,
-          'thousand_separator' => ' ',
+          'thousand_separator' => '',
         ),
         'type' => 'number_integer',
         'weight' => 7,
@@ -315,9 +365,9 @@ function ct_manga_field_default_field_instances() {
         'module' => 'number',
         'settings' => array(
           'decimal_separator' => '.',
-          'prefix_suffix' => TRUE,
+          'prefix_suffix' => 0,
           'scale' => 0,
-          'thousand_separator' => ' ',
+          'thousand_separator' => '',
         ),
         'type' => 'number_integer',
         'weight' => 6,
@@ -357,6 +407,7 @@ function ct_manga_field_default_field_instances() {
   t('Manga Score');
   t('Manga Status');
   t('Manga Volumes');
+  t('Picture');
   t('Read Chapters');
   t('Read Volumes');
 
