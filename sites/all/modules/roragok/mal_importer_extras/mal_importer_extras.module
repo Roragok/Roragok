@@ -60,7 +60,7 @@ function mal_importer_extras_anime_import_submit()
     drupal_set_message(t('Animu Pictures and Synopsis Imported.'));
 
     //Load all Anime Nodes
-    //Possibly add check if it has no image or body before importing to reduce slamming mal
+    //Possibly add check if it has no image or body before importing to reduce slamming hummmingbird
     $nodes = node_load_multiple(array(), array('type' => 'anime'));
 
     //Iterate though the anime nodes
@@ -68,21 +68,17 @@ function mal_importer_extras_anime_import_submit()
 
         // Get cURL resource
         $curl = curl_init();
-        //IF V2 WORKS FFS
+        //IF V2 WORKS FFS can lookup via mal idXD
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'http://hummingbird.me/api/v1/search/anime?query=' .$node->title,
+            CURLOPT_URL => 'http://hummingbird.me/api/v1/search/anime?query=' .preg_replace ('/\s+/','+',$node->title),
             CURLOPT_HTTPHEADER => array('X-Client-Id: 8d5fc69d9672da560d8a'),
         ));
         $result = curl_exec($curl);
         curl_close($curl);
-
         $json = json_decode($result, true);
 
-
-
-        //Load response as an xml
-
+        //Check if it has a response before trying to update shit fam
         if (!empty($json)) {
             //Since we can only search we need to iterate though each response and find the one that matches our ID
             foreach ($json as $entry) {
