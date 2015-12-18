@@ -36,8 +36,8 @@ function ct_anime_image_default_styles() {
       1 => array(
         'name' => 'image_scale',
         'data' => array(
-          'width' => '',
-          'height' => 300,
+          'width' => 170,
+          'height' => '',
           'upscale' => 1,
         ),
         'weight' => 1,
