@@ -78,8 +78,7 @@ function mal_importer_extras_anime_import_submit()
         curl_close($curl);
 
         $json = json_decode($result, true);
-    dsm($json);
-        break;
+
 
 
         //Load response as an xml
