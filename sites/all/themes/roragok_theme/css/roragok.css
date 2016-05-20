@@ -3,8 +3,13 @@ GENERAL SHIT
 */
 
 body{
+background: lightgray;
 background: -webkit-linear-gradient(left, lightgray,#ffffff 50%);
+background: -o-linear-gradient(left, lightgray,#ffffff 50%);
+background: -moz-linear-gradient(left, lightgray,#ffffff 50%);
+background: linear-gradient(left, lightgray,#ffffff 50%);
 }
+
 html{
     background:#404040;
 }
