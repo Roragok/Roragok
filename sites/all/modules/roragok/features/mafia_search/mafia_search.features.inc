@@ -32,8 +32,8 @@ function mafia_search_default_search_api_index() {
         "author" : { "type" : "integer", "entity_type" : "user" },
         "field_day_1_lynch" : { "type" : "integer", "entity_type" : "node" },
         "field_game_winner" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" },
-        "field_mafia_game_name" : { "type" : "integer", "entity_type" : "taxonomy_term" },
-        "field_mafia_game_type" : { "type" : "integer", "entity_type" : "taxonomy_term" },
+        "field_mafia_game_name" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" },
+        "field_mafia_game_type" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" },
         "field_mafia_players" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "node" },
         "field_mafia_players_b" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "node" },
         "field_mafia_roles" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" },
@@ -53,7 +53,18 @@ function mafia_search_default_search_api_index() {
         },
         "search_api_alter_node_access" : { "status" : 0, "weight" : "0", "settings" : [] },
         "search_api_alter_node_status" : { "status" : 1, "weight" : "0", "settings" : [] },
-        "search_api_alter_add_hierarchy" : { "status" : 0, "weight" : "0", "settings" : { "fields" : [] } },
+        "search_api_alter_add_hierarchy" : {
+          "status" : 1,
+          "weight" : "0",
+          "settings" : { "fields" : {
+              "field_mafia_game_type:parent" : "field_mafia_game_type:parent",
+              "field_mafia_game_name:parent" : "field_mafia_game_name:parent",
+              "field_mafia_roles:parent" : "field_mafia_roles:parent",
+              "field_game_winner:parent" : "field_game_winner:parent",
+              "field_mafia_size:parent" : "field_mafia_size:parent"
+            }
+          }
+        },
         "search_api_alter_add_viewed_entity" : { "status" : 0, "weight" : "0", "settings" : { "mode" : "full" } },
         "search_api_alter_add_url" : { "status" : 0, "weight" : "0", "settings" : [] },
         "search_api_alter_add_aggregation" : { "status" : 1, "weight" : "0", "settings" : [] }
@@ -104,115 +115,6 @@ function mafia_search_default_search_api_index() {
     },
     "enabled" : "1",
     "read_only" : "0",
-    "rdf_mapping" : []
-  }');
-  return $items;
-}
-
-/**
- * Implements hook_default_search_api_server().
- */
-function mafia_search_default_search_api_server() {
-  $items = array();
-  $items['localhost'] = entity_import('search_api_server', '{
-    "name" : "localhost",
-    "machine_name" : "localhost",
-    "description" : "local db shit",
-    "class" : "search_api_db_service",
-    "options" : {
-      "database" : "default:default",
-      "min_chars" : "1",
-      "partial_matches" : 0,
-      "indexes" : { "mafia" : {
-          "title" : { "table" : "search_api_db_mafia_text", "type" : "text", "boost" : "1.0" },
-          "search_api_language" : {
-            "table" : "search_api_db_mafia",
-            "column" : "search_api_language",
-            "type" : "string",
-            "boost" : "1.0"
-          },
-          "status" : {
-            "table" : "search_api_db_mafia",
-            "column" : "status",
-            "type" : "boolean",
-            "boost" : "1.0"
-          },
-          "author" : {
-            "table" : "search_api_db_mafia",
-            "column" : "author",
-            "type" : "integer",
-            "boost" : "1.0"
-          },
-          "field_town_players" : {
-            "table" : "search_api_db_mafia_field_town_players",
-            "column" : "value",
-            "type" : "list\\u003Cinteger\\u003E",
-            "boost" : "1.0"
-          },
-          "field_mafia_players" : {
-            "table" : "search_api_db_mafia_field_mafia_players",
-            "column" : "value",
-            "type" : "list\\u003Cinteger\\u003E",
-            "boost" : "1.0"
-          },
-          "field_third_party" : {
-            "table" : "search_api_db_mafia_field_third_party",
-            "column" : "value",
-            "type" : "list\\u003Cinteger\\u003E",
-            "boost" : "1.0"
-          },
-          "field_mafia_players_b" : {
-            "table" : "search_api_db_mafia_field_mafia_players_b",
-            "column" : "value",
-            "type" : "list\\u003Cinteger\\u003E",
-            "boost" : "1.0"
-          },
-          "field_signed_players" : {
-            "table" : "search_api_db_mafia_field_signed_players",
-            "column" : "value",
-            "type" : "list\\u003Cinteger\\u003E",
-            "boost" : "1.0"
-          },
-          "field_night_1_kills" : {
-            "table" : "search_api_db_mafia_field_night_1_kills",
-            "column" : "value",
-            "type" : "list\\u003Cinteger\\u003E",
-            "boost" : "1.0"
-          },
-          "field_mafia_roles" : {
-            "table" : "search_api_db_mafia_field_mafia_roles",
-            "column" : "value",
-            "type" : "list\\u003Cinteger\\u003E",
-            "boost" : "1.0"
-          },
-          "field_game_winner" : {
-            "table" : "search_api_db_mafia_field_game_winner",
-            "column" : "value",
-            "type" : "list\\u003Cinteger\\u003E",
-            "boost" : "1.0"
-          },
-          "field_mafia_game_type" : {
-            "table" : "search_api_db_mafia",
-            "column" : "field_mafia_game_type",
-            "type" : "integer",
-            "boost" : "1.0"
-          },
-          "field_mafia_game_name" : {
-            "table" : "search_api_db_mafia",
-            "column" : "field_mafia_game_name",
-            "type" : "integer",
-            "boost" : "1.0"
-          },
-          "field_day_1_lynch" : {
-            "table" : "search_api_db_mafia",
-            "column" : "field_day_1_lynch",
-            "type" : "integer",
-            "boost" : "1.0"
-          }
-        }
-      }
-    },
-    "enabled" : "1",
     "rdf_mapping" : []
   }');
   return $items;
