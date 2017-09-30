@@ -167,7 +167,7 @@ abstract class FacetapiAdapter {
   abstract public function searchExecuted();
 
   /**
-   * Returns a boolean flagging whether facets in a realm should be displayed.
+   * Returns a boolean flagging whether facets in a realm shoud be displayed.
    *
    * Useful, for example, for suppressing sidebar blocks in some cases. Apache
    * Solr Search Integration used this method to prevent blocks from being
@@ -309,9 +309,9 @@ abstract class FacetapiAdapter {
       // Perform basic parsing of the filter.
       $parts = explode(':', $filter, 2);
       $field_alias = rawurldecode($parts[0]);
-      $filter = $field_alias . ':' . $parts[1]; // @see https://www.drupal.org/node/1884152
+      //$filter = $field_alias . ':' . $parts[1]; // @see https://www.drupal.org/node/1884152
       if (isset($parts[1]) && isset($enabled_aliases[$field_alias])) {
-
+	 $filter = $field_alias . ':' . $parts[1];
         // Store basic information about the active item. For details on how
         // this array is structured, refer to the FacetapiAdapter::activeItems
         // docblock.
@@ -344,7 +344,7 @@ abstract class FacetapiAdapter {
    *
    * @return array
    *   An associative array keyed by facet name to FacetapiQueryTypeInterface
-   *   object, FALSE if the query type is not supported by this searcher.
+   *   object, FALSE if the query type is not supported bu this searcher.
    *
    * @see FacetapiAdapter::processActiveItems()
    */
@@ -978,7 +978,7 @@ abstract class FacetapiAdapter {
    *   An integer flagging whether the item is active or not.
    *
    * @return array
-   *   The query string variables.
+   *   The query string vriables.
    *
    * @see FacetapiUrlProcessor::getQueryString()
    */
@@ -1058,7 +1058,7 @@ abstract class FacetapiAdapter {
       return array();
     }
 
-    // Make sure facet builds are initialized and breadcrumb trail is set.
+    // Make sure facet builds are initialized and breakcrumb trail is set.
     $this->processFacets();
 
     // Add JavaScript, initializes the realm specific render array.
@@ -1118,7 +1118,7 @@ abstract class FacetapiAdapter {
 /**
  * Wrapper around the facet definition with methods that build render arrays.
  *
- * This class contain methods that assist in render array generation and stores
+ * Thic class contain methods that assist in render array generation and stores
  * additional context about how and what generated the render arrays for
  * consumption by the widget plugins. Objects can also be used as if they are
  * the facet definitions returned by facetapi_facet_load().
@@ -1421,7 +1421,7 @@ class FacetapiFacetProcessor {
    *   The index value of the item.
    *
    * @return array
-   *   The active item's children.
+   *   The active item's childen.
    */
   public function getActiveChildren($value) {
     return (isset($this->activeChildren[$value])) ? $this->activeChildren[$value] : array();
